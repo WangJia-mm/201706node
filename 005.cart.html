@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<!--基础样式 基本的 增强样式 颜色 default 灰色 danger 红色 warning 警告 success 绿色 primary 蓝色 info 淡蓝色-->
+<div class="container">
+    <table class="table table-bordered">
+        <caption class="h2 text-danger">珠峰购物车</caption>
+        <tr>
+            <th class="text-center"><input type="checkbox"> 全选</th>
+            <th class="text-center">商品信息</th>
+            <th class="text-center">单价</th>
+            <th class="text-center">数量</th>
+            <th class="text-center">小计</th>
+            <th class="text-center">操作</th>
+        </tr>
+        <tr class="text-center">
+            <td><input type="checkbox"></td>
+            <td>iphone6</td>
+            <td>100</td>
+            <td><input type="text"></td>
+            <td></td>
+                                            <!--xs sm lg-->
+            <td><button class="btn btn-danger btn-sm">删除</button></td>
+        </tr>
+        <tr>
+            <td colspan="6">总价</td>
+        </tr>
+    </table>
+</div>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vue-resource/dist/vue-resource.js"></script>
+<!--vue-resource 会默认在当前实例上增加一个$http的属性-->
+<script>
+    //641764053
+    let vm = new Vue({
+        el:'.container',
+        data:{
+            products:[]
+        },
+        created(){ //当实例创建之后 就会执行的方法,ajax请求数据的方法，钩子方法默认的this也是当前实例
+           this.$http.get('./product.json').then(function(res){
+               this.products = res.body; //获取数据渲染页面
+           });
+        }
+    });
+</script>
+</body>
+</html>

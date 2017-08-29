@@ -33,3 +33,4 @@ npm install vue --save
 - v-text解决局部闪烁问题
 - v-cloak 解决闪烁问题
 - v-for 循环 数组 对象，将数据变成dom结构
+- v-if/v-show 控制显示和隐藏
