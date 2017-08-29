@@ -4,17 +4,5 @@
     "productPrice":100,
     "productCount":3,
     "isSelected":true
-  },
-  {
-    "productName":"iphone6",
-    "productPrice":100,
-    "productCount":3,
-    "isSelected":true
-  },
-  {
-    "productName":"iphone7plus",
-    "productPrice":300,
-    "productCount":1,
-    "isSelected":false
   }
 ]

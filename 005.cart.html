@@ -8,6 +8,19 @@
 <body>
 <!--基础样式 基本的 增强样式 颜色 default 灰色 danger 红色 warning 警告 success 绿色 primary 蓝色 info 淡蓝色-->
 <div class="container">
+    <form>
+        <div class="form-group">
+            <label for="productName" class="control-label">商品名称</label>
+            <input type="text" id="productName" placeholder="请输入商品名称" class="form-control" v-model="product.productName">
+        </div>
+        <div class="form-group">
+            <label for="productPrice" class="control-label">商品商品价格</label>
+            <input type="text" id="productPrice" placeholder="请输入商品价格" class="form-control" v-model="product.productPrice">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="button" @click="add">添加</button>
+        </div>
+    </form>
     <table class="table table-bordered">
         <caption class="h2 text-danger">珠峰购物车</caption>
         <tr>
@@ -34,6 +47,9 @@
             <td colspan="6">总价 {{total()}}</td>
         </tr>
     </table>
+
+
+
 </div>
 <script src="node_modules/vue/dist/vue.js"></script>
 <script src="node_modules/vue-resource/dist/vue-resource.js"></script>
@@ -43,6 +59,7 @@
         el:'.container',
         data:{
             all:false,
+            product:{isSelected:true,productCount:1,productName:'',productPrice:''},
             products:[]
         },
         created(){ //当实例创建之后 就会执行的方法,ajax请求数据的方法，钩子方法默认的this也是当前实例
@@ -68,6 +85,17 @@
                 return this.products.reduceRight((prev,next,index,arr)=>{
                     return prev+next.productCount*next.productPrice;
                 },0);
+            },
+            //添加
+            add(){
+                this.products.push(this.product);
+                //如果将对象赋予成{} 下次修改时 数据是不会被响应的
+                this.product = {
+                    isSelected:true,
+                    productCount:1,
+                    productName:'',
+                    productPrice:''
+                }
             }
         }
     });
