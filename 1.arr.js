@@ -22,8 +22,16 @@ console.log([1,4,3].every(item=>item>3));//找false 找到后就返回不继续�
 
 //6.reduce reduce回调函数中有几个参数 收敛 返回一个叠加后的结果
 //返回结果会作为下一次的上一个
-let sum = [{count:1,price:2},{count:2,price:3},{count:2,price:3}].reduce(function (prev,current,index,oldArr) { //参数个数4
-    console.log(arguments);
+/*
+let sum = [0,{count:1,price:2},{count:2,price:3},{count:2,price:3}].reduce(function (prev,current,index,oldArr) { //参数个数4
+    console.log(prev,current);
     return prev+current.count*current.price;
 },0);//0指的是第一项 相当于在数组前面增加了一项
 console.log(sum);
+*/
+
+let flat = [[1,2],[3,4],[5,8]].reduce((prev,next)=>prev.concat(next));
+console.log(flat);
+
+
+//声明式

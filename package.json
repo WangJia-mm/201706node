@@ -1,0 +1,23 @@
+{
+  "name": "201706node",
+  "version": "1.0.0",
+  "description": "- slice push shift unshift pop splice join concat sort reverse",
+  "main": "1.arr.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhufengzhufeng/201706node.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhufengzhufeng/201706node/issues"
+  },
+  "homepage": "https://github.com/zhufengzhufeng/201706node#readme",
+  "dependencies": {
+    "vue": "^2.4.2"
+  }
+}
