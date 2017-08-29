@@ -34,3 +34,17 @@ npm install vue --save
 - v-cloak 解决闪烁问题
 - v-for 循环 数组 对象，将数据变成dom结构
 - v-if/v-show 控制显示和隐藏
+
+## 本周
+- 常用指令
+- 常用属性 todo的例子
+- 第三天 主要是回顾前两天内容 promise
+
+## 下周
+- 组件写法
+- 路由用法
+- webpack 打包工具 vue-cli生成和构建
+
+## 大下周（周四考试）
+- vue-cli 写一个书店项目
+- vuex 状态管理
