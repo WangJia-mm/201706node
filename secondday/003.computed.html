@@ -29,6 +29,9 @@
                     <td colspan="4">总价: {{total}}</td>
                 </tr>
             </table>
+            <!--vue-validate 校验库-->
+            <input type="text" placeholder="请输入用户名" v-model="val">
+            <div>{{check}}</div>
         </div>
     </div>
 </div>
@@ -39,13 +42,24 @@
     let vm = new Vue({
         el:'.container',
         data:{
+            val:'',
             products:[]
         },
         methods:{}, //只提供方法的，
-        computed:{
+        computed:{ //computed不支持异步。
+            check(){ //可以校验用户输入的内容
+                if(this.val.length<6){
+                    return '账号太短'
+                }else if(this.val.length>8){
+                    return '账号太长'
+                }else{
+                    return '';
+                }
+            },
             all:{
                 get(){ //根据别人计算自己
-                    return this.products.every(item=>item.isSelected);
+
+                     return this.products.every(item=>item.isSelected);
                 },
                 set(val){ //给自己赋值 控制别人
                     this.products.forEach(item=>item.isSelected = val);
