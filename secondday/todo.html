@@ -28,10 +28,16 @@
                     </div>
                     <div class="panel-body">
                         <ul class="list-group">
-                            <li class="list-group-item" v-for="todo in todos">
-                                <input type="checkbox" v-model="todo.isSelected">
-                                <span>{{todo.title}}</span>
-                                <button class="btn btn-danger btn-xs pull-right" @click="remove(todo)">&times;</button>
+                            <li class="list-group-item" v-for="todo in todos" @dblclick="change(todo)">
+                                <!--当前点击的 和循环的这一项相等 说明当前要变成输入框
+                                current是当前点击的 如果和循环的比较不相等说明不变成输入框
+                                -->
+                                <div v-show="current!=todo">
+                                    <input type="checkbox" v-model="todo.isSelected">
+                                    <span>{{todo.title}}</span>
+                                    <button class="btn btn-danger btn-xs pull-right" @click="remove(todo)">&times;</button>
+                                </div>
+                                <input type="text" v-model="todo.title" v-show="current==todo" @keyup.13="save" @blur="save" @keyup.esc="cancel">
                             </li>
                         </ul>
                     </div>
