@@ -36,12 +36,12 @@
                     </tr>
                     <tr v-for="cart in carts">
                         <td>{{cart.productName}}</td>
-                        <td>{{cart.productPrice}}</td>
+                        <td>{{cart.productPrice | toInit(1)}}</td>
                         <td>{{cart.count}}</td>
-                        <td>{{cart.count*cart.productPrice | toFixed(1)}}</td>
+                        <td>{{cart.count*cart.productPrice | toInit(1)}}</td>
                     </tr>
                     <tr>
-                        <td colspan="4">总价 {{total | toFixed(2) }}</td>
+                        <td colspan="4">总价 {{total | toInit(2) }}</td>
                     </tr>
                 </table>
             </div>
@@ -62,7 +62,7 @@
     let vm = new Vue({
         el:'#app',
         filters:{ //过滤器
-            toFixed(input,param1){ //原数据 ，返回什么 就变成什么 但是原数据并不会改变
+            toInit(input,param1){ //原数据 ，返回什么 就变成什么 但是原数据并不会改变
                 return '£'+input.toFixed(param1);
             }
         },
