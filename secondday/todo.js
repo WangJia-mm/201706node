@@ -59,7 +59,7 @@ let vm = new Vue({
         }
     },
     created(){ //当实例创建后执行的方法，取的过程是同步的，如果放到mounted会导致渲染两次
-        this.todos = JSON.parse(localStorage.getItem('todos'));
+        this.todos = JSON.parse(localStorage.getItem('todos')) || this.todos;
         //默认取出结果 放入到todos中
     },
     watch:{ // 只监控 todos数组的个数 数组变化了可以监控到，数组中的对象默认不会监控
