@@ -77,7 +77,17 @@ git commit -m '信息'
 
 ## 查看提交历史
 ```
-git log 
+git log --author="根据字段搜索"
 ```
 
+## 比较三个区的不同
+- git diff 比较的是 工作区和暂存区
+- git diff --cached 比较的是 暂存区和历史区
+- git diff (分支名) 工作区和历史区
+
+
+## 输出内容到文件中
+```
+echo world >> index.txt
+```
 
