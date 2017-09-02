@@ -136,5 +136,9 @@ git branch -D dev
 git checkout -b dev
 ```
 
+## 合并分支
+- git merge
 
+## 解决冲突
+- 删除所以没用的，留下需要的在次提交
 
