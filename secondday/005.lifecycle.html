@@ -29,6 +29,7 @@
         },
         mounted(){//获取真实dom元素 this.$refs.ok
             alert('mounted');
+            console.log(this.$refs.ok);
         },
         beforeUpdate(){ //当页面上的数据发生变化会执行此方法，前提是页面用到了这个数据
             alert('beforeUpdate')
