@@ -16,17 +16,32 @@ console.timeEnd('start'); //计时
 //将参数列表转化成数组,箭头函数中没有arguments
 //1.[].slice.call(arguments)
 //2.Array.from(arguments)
-//3. ...arr将类数组转换成数组
-setTimeout(function(...arr){ //剩余运算符
-   console.log(arr)
+//3. ...arr将类数组转换成数组  console.log([...[1,2],...[3,4]]);
+//{...{name:1},...{age:2}} es7语法 node不支持 可以使用babel-node转化
+setTimeout(function(...arr){ // 在参数中是剩余运算符
    //console.log(a,b); //setTimeout中this指向的是自己
 },1000,1,2);
 //给setTimeout传递参数,传递参数 通过第三个参数传递
 
-
 //setInterval
-//setImmediate 立即 不支持设置时间
+//setImmediate 立即 不支持设置时间  setImmediate和setTimeout都是 速度不一定谁快谁慢 自己写的回调一般早于setImmediate
+setImmediate(function () {
+    console.log('ok')
+});
+//process 进程 区分环境变量 一般情况下本地设置NODE_ENV;
+//window使用 set NODE_ENV=dev
+//mac       export NODE_ENV=dev
+let url = '';
+if(process.env.NODE_ENV==='dev'){
+    url = 'http://localhost'
+}else{
+    url = 'http://128.1.1.2';
+}
+console.log(url);
+console.log(process.pid);
+process.kill(12596);//删除进程
+
+
 //Buffer
-//process
-//global
+
 
