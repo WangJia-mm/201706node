@@ -18,7 +18,7 @@ https://brew.sh/index_zh-cn.html
 
 ## 回调（处理异步编程）promise -> async await
 - 当前不调,回头在调
-callback setTimout onclick ajax
+callback setTimout （onclick ajax）
 
 ## 异步（能用异步就不用同步 不会阻塞主线程）
 - 代码从上到下，当同步代码执行完毕在执行
