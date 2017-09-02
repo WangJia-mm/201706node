@@ -91,3 +91,50 @@ git log --author="根据字段搜索"
 echo world >> index.txt
 ```
 
+## 回滚工作区
+- 用暂存区的覆盖掉工作
+```
+git checkout <file>
+```
+
+
+## 将暂存区中的内容 回到上一次的暂存区
+```
+git reset HEAD .
+```
+
+## 回滚历史区
+- 强制用历史区的版本，覆盖掉工作区和暂存区
+```
+git reset --hard 版本id
+```
+
+## 可以打印所有日志
+```
+git reflog
+```
+
+## git分支管理
+- 查看分支
+```
+git branch 
+```
+- 创建分支
+```
+git branch dev
+```
+- 切换分支
+```
+git checkout dev
+```
+- 删除分支
+```
+git branch -D dev
+```
+- 创建并切换分支
+```
+git checkout -b dev
+```
+
+
+
