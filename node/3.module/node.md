@@ -58,3 +58,17 @@ npm publish 发布
 
 > 可以将写好的模块发布到npm官网上
 
+## 核心模块 用法第三方模块一致（不需要安装node自带）
+- http fs url util path
+```
+path.resolve();
+path.join();
+```
+
+## util核心模块
+- 用来实现js中的继承
+
+
+
+> 解决路径需要是绝对路径的问题
+
