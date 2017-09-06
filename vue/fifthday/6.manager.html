@@ -21,12 +21,21 @@
             </ul>
         </div>
     </div>
-    <div class="container">
+    <div class="container" style="position: relative">
         <!--<keep-alive> 内置的组件不让组件销毁，此时created方法中不会再次执行，相当于做了缓存-->
-            <router-view></router-view>
+        <!--在同一时间内可以看到两个动画-->
+        <transition enter-active-class="animated slideInRight" leave-active-class="animated slideOutLeft">
+            <router-view style="position: absolute;top:0;left: 0;width: 100%"></router-view>
+        </transition>
     </div>
 </div>
-<template id="home"><div>首页</div></template>
+<template id="home">
+    <div>
+        <router-link to="/article/1">文章1</router-link>
+        <router-link to="/article/2">文章2</router-link>
+        <router-view></router-view>
+    </div>
+</template>
 <template id="list">
     <div>
         <ul class="list-group">
@@ -63,7 +72,7 @@
                     next(vm=>{
                         vm.lists = res.data;
                     });//next中可以传入回调函数，当created执行后会调用这个回调函数，并且将this传递进去
-                },3000);
+                },20);
             });
         },
         created(){ //目前只能组件中获取数据,在组件中获取数据,缺陷就是先跳转了 后加载
@@ -76,10 +85,46 @@
     };
     let Profile = {template:'#profile'};
     let Login = {template:'#login'};
-    let AboutMe = {template:'<div>关于我</div>'}
+    let AboutMe = {template:'<div>关于我</div>'};
+    let Article = {
+        template:'<div>{{msg}}</div>',
+        data(){return {msg:''}},
+        created(){ //只触发一次
+            this.getData();
+        },
+        watch:{
+            $route(){ //路径参数变化不会触发beforeRouteEnter唯一的方式就是监控$route属性
+               this.getData();
+            }
+        },
+        methods:{
+            getData(){
+                let id = this.$route.params.aid;
+                axios.get(`./article${id}.json`).then(res=>{
+                    this.msg = res.data.content;
+                });
+            }
+        }
+    };
     let router = new VueRouter({
+        //mode:'history',
+        //仅当 前进后退时 才能实现记住位置 并且模式时h5的模式
+        scrollBehavior (to, from, savedPosition) {
+            if (savedPosition) {
+                return savedPosition
+            } else {
+                return { x: 0, y: 0 }
+            }
+        },
         routes:[
-            {path:'/home',component:Home},
+            {
+                path:'/home',
+                component:Home,
+                children:[
+                    //实现通过路径参数请求不同的数据
+                    {path:'/article/:aid',component:Article}
+                ]
+            },
             {path:'/list',component:List},
             //如果sessionStorage 中的login的值是1 可以访问 如果是0则跳转到登录页
             {path:'/profile',component:Profile,
