@@ -22,13 +22,9 @@
         </div>
     </div>
     <div class="container">
-        <router-view></router-view>
+        <!--<keep-alive> 内置的组件不让组件销毁，此时created方法中不会再次执行，相当于做了缓存-->
+            <router-view></router-view>
     </div>
-
-
-
-
-
 </div>
 <template id="home"><div>首页</div></template>
 <template id="list">
@@ -38,7 +34,14 @@
         </ul>
     </div>
 </template>
-<template id="profile"><div>个人中心</div></template>
+<template id="profile">
+    <div class="row">
+        <div class="nav nav-stacked col-md-3">
+            <li><router-link to="/profile/about">关于我</router-link></li>
+        </div>
+        <router-view class="col-md-9"></router-view>
+    </div>
+</template>
 <template id="login"><div>登录</div></template>
 <script src="node_modules/axios/dist/axios.js"></script>
 <script src="node_modules/vue/dist/vue.js"></script>
@@ -51,21 +54,38 @@
         data(){
             return {lists:[]}
         },
-        created(){ //目前只能组件中获取数据,在组件中获取数据,缺陷就是先跳转了 后加载
+        beforeRouteEnter(to,from,next){ //在路由进入之前
+            //默认相当于可以向下执行，看你是否调用了next，没有调用next表示不继续
+            //在这里可以获取数据 获取成功后渲染组件，好处不会有闪烁问题，但是在这之前路由不会发生改变 等待调用next才会进行改变
             axios.get('./list.json').then((res)=>{
                 setTimeout(()=>{
-                    this.lists = res.data;
-                },3000)
+                    //this.lists = res.data; //此时获取不到this
+                    next(vm=>{
+                        vm.lists = res.data;
+                    });//next中可以传入回调函数，当created执行后会调用这个回调函数，并且将this传递进去
+                },3000);
             });
+        },
+        created(){ //目前只能组件中获取数据,在组件中获取数据,缺陷就是先跳转了 后加载
+            /*axios.get('./list.json').then((res)=>{
+                setTimeout(()=>{
+                    this.lists = res.data;
+                },3000);
+            });*/
         }
     };
     let Profile = {template:'#profile'};
     let Login = {template:'#login'};
+    let AboutMe = {template:'<div>关于我</div>'}
     let router = new VueRouter({
         routes:[
             {path:'/home',component:Home},
             {path:'/list',component:List},
-            {path:'/profile',component:Profile},
+            {path:'/profile',component:Profile,
+                children:[
+                    {path:'about',component:AboutMe}
+                ]
+            },
             {path:'/login',component:Login},
         ]
     });
