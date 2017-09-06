@@ -81,13 +81,30 @@
         routes:[
             {path:'/home',component:Home},
             {path:'/list',component:List},
+            //如果sessionStorage 中的login的值是1 可以访问 如果是0则跳转到登录页
             {path:'/profile',component:Profile,
                 children:[
                     {path:'about',component:AboutMe}
-                ]
+                ],
+                meta:{needLogin:true} //相当于填了一条备注
             },
+            //路由元信息
             {path:'/login',component:Login},
         ]
+    });
+    //全局钩子 只要路由切换就可以拦截到
+    router.beforeEach(function (to,from,next) {
+        console.log(to);//可以去matched属性中看匹配的路由中是否有needLogin字段，如果有继续验证是否登陆，如果没登录去登录页
+        let flag = to.matched.some(route=>route.meta.needLogin);//如果有需要登陆的flag值就是true
+        if(flag){
+            if(sessionStorage.getItem('login')==='0'){
+                next({path:'/login'});//跳转到login，没登录
+            }else{
+                next();//登陆过了
+            }
+        }else{ //不需要登录 继续访问
+            next(); //如果ok 要调用next否则就卡死在当前路径了
+        }
     });
     let vm = new Vue({
         el:'#app',
